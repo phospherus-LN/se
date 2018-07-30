@@ -16,6 +16,8 @@ public class MyTest {
         String str = "";
 
         String s = str.toString();
+
+        System.out.println(s);
     }
 
 }
