@@ -11,16 +11,22 @@ public class ThreadDemo  extends Thread {
 
     public static void main(String[] args) {
 
+        ThreadDemo thread1 = new ThreadDemo("000");
+
+        ThreadDemo thread2 = new ThreadDemo("000");
+
+        thread1.start();
+
+        thread2.start();
 
 
-        new ThreadDemo("000").start();
+        for (int i = 0; i < 10000*100000; i++) {
 
-        new ThreadDemo("111").start();
+            if (i>16){
+                thread1.notify();
 
-        for (int i = 0; i < 10; i++) {
 
-            for (int i1 = 0; i1 < 1000; i1++);
-            System.out.println(i +"\t"+Thread.currentThread().getName());
+            }
         }
 
     }
@@ -30,8 +36,20 @@ public class ThreadDemo  extends Thread {
     public void run() {
         for (int i = 0; i < 10; i++) {
 
-            for (int i1 = 0; i1 < 1000; i1++);
             System.out.println(i + "\t"+Thread.currentThread().getName());
+
+            if (i==6){
+                try {
+                    Thread.currentThread().wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+
+
+
         }
     }
 }
